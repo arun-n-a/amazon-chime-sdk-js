@@ -767,6 +767,8 @@ export class DemoMeetingApp
         console.info('Setting recorder to', recorder);
         recorder.ondataavailable = (event) => {
           if (event.data.size) {
+            console.log("****ondataavailable ***: ", event.data);
+            console.log("****ondataavailable ***: ", event);
             chunks.push(event.data);
           }
         };
@@ -795,8 +797,10 @@ export class DemoMeetingApp
     buttonVideo.addEventListener('click', _e => {
       AsyncScheduler.nextTick(async () => {
         if (this.toggleButton('button-camera') && this.canStartLocalVideo) {
+          console.log("****this.toggleButton('button-camera')");
           try {
             let camera: string = videoInput.value;
+            console.log("*****let camera is: ", camera);
             if (videoInput.value === 'None') {
               camera = this.cameraDeviceIds.length ? this.cameraDeviceIds[0] : 'None';
             }
@@ -1609,6 +1613,7 @@ export class DemoMeetingApp
 
     reports.forEach(report => {
       if (report.type === 'outbound-rtp') {
+        const logger = new ConsoleLogger('SDK', LogLevel.DEBUG);
         // remained to be calculated
         this.log(`${id} is bound to ssrc ${report.ssrc}`);
         console.log("********for each report frame details is ***", report);
@@ -1616,10 +1621,13 @@ export class DemoMeetingApp
         basicReports['width'] = report.frameWidth;
         basicReports['height'] = report.frameHeight;
         basicReports['fps'] = report.framesEncoded;
-        console.log("**** FPS frames encoded result is ", report.frames);
-        console.log("**** FPS frames encoded result is ", report.framesEncoded);
+        console.log("**** FPS frames encoded result is frames****: ", report.frames);
+        console.log("**** FPS frames encoded result is encoded****: ", report.framesEncoded);
+        console.log("**** basicReports****: ", basicReports);
         duration = report.timestamp;
-        const logger = new ConsoleLogger('SDK', LogLevel.DEBUG);
+        logger.info("****basicReports*****: ${basicReports}");
+        logger.info("**** FPS frames encoded result is encoded****: ${report.framesEncoded}");
+        logger.info("**** FPS frames encoded result is frames****: ${report.frames}");
         logger.info('[DEMO] Arunnnnnnnn forrach meetingv2.ts *****.:  ${report}');  
       }
     });
@@ -1633,7 +1641,7 @@ export class DemoMeetingApp
             // remained to be calculated
             basicReports['bitrate'] = Math.trunc(
               ((report.bytesSent - basicReports['bitrate']) * 8) / duration
-            );
+);
             basicReports['width'] = report.frameWidth;
             basicReports['height'] = report.frameHeight;
             basicReports['fps'] = Math.trunc(
@@ -1878,7 +1886,6 @@ export class DemoMeetingApp
   private async populateVideoFilterInputList(): Promise<void> {
     const genericName = 'Filter';
     let filters: VideoFilterName[] = ['None'];
-
     if (
       this.defaultBrowserBehaviour.supportsCanvasCapturedStreamPlayback() &&
       this.enableUnifiedPlanForChromiumBasedBrowsers

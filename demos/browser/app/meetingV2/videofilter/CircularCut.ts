@@ -67,6 +67,7 @@ export default class CircularCut implements VideoFrameProcessor {
     this.targetCanvasCtx.drawImage(canvas, 0, 0);
 
     buffers[0] = this.canvasVideoFrameBuffer;
+    console.log("*****this.canvasVideoFrameBuffer*****: ", this.canvasVideoFrameBuffer);
     return Promise.resolve(buffers);
   }
 }

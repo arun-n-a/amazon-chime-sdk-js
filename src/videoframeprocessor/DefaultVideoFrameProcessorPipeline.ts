@@ -102,6 +102,7 @@ export default class DefaultVideoFrameProcessorPipeline implements VideoFramePro
 
   addObserver(observer: VideoFrameProcessorPipelineObserver): void {
     this.observers.add(observer);
+    console.log("****addObserver****: ", observer);
   }
 
   removeObserver(observer: VideoFrameProcessorPipelineObserver): void {
@@ -109,14 +110,16 @@ export default class DefaultVideoFrameProcessorPipeline implements VideoFramePro
   }
 
   async getInputMediaStream(): Promise<MediaStream | null> {
+    console.log("******getInputMediaStream******: ", this.inputVideoStream);
     return this.inputVideoStream;
   }
 
   getActiveOutputMediaStream(): MediaStream {
     if (this.outputMediaStream && this.outputMediaStream.active) {
+      console.log("*****getActiveOutputMediaStream this.outputMediaStream: ", this.outputMediaStream);
       return this.outputMediaStream;
     }
-
+    console.log("****getActiveOutputMediaStream***: ", this.canvasOutput.captureStream(this.framerate));
     return (this.outputMediaStream = this.canvasOutput.captureStream(this.framerate));
   }
 
