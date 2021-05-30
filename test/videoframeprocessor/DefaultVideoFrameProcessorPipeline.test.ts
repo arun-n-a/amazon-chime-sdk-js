@@ -77,6 +77,7 @@ describe('DefaultVideoFrameProcessorPipeline', () => {
     it('can set the input', async () => {
       await pipe.setInputMediaStream(mockVideoStream);
       const outputStream = await pipe.getInputMediaStream();
+      console.log("**** Outputsream1 ", outputStream);
       expect(outputStream.id).to.equal(mockStreamId);
       await pipe.setInputMediaStream(null);
     });
@@ -85,6 +86,7 @@ describe('DefaultVideoFrameProcessorPipeline', () => {
       const emptyStream = new MediaStream();
       await pipe.setInputMediaStream(emptyStream);
       const outputStream = await pipe.getInputMediaStream();
+      console.log("**** Outputsreammm2 ", outputStream);
       expect(outputStream).to.equal(null);
       await pipe.setInputMediaStream(null);
     });
@@ -92,6 +94,7 @@ describe('DefaultVideoFrameProcessorPipeline', () => {
     it('can stop the pipeline multiple times', async () => {
       await pipe.setInputMediaStream(null);
       const outputStream = await pipe.getInputMediaStream();
+      console.log("**** OutputStream3 : ", outputStream);
       expect(outputStream).to.equal(null);
       await pipe.setInputMediaStream(null);
     });
@@ -218,7 +221,7 @@ describe('DefaultVideoFrameProcessorPipeline', () => {
     it('can get the input', async () => {
       let inputStream = await pipe.getInputMediaStream();
       expect(inputStream).to.be.null;
-
+      console.log("**** input streamm: ", inputStream);
       await pipe.setInputMediaStream(mockVideoStream);
       inputStream = await pipe.getInputMediaStream();
       expect(inputStream.id).to.equal(mockStreamId);
@@ -234,6 +237,7 @@ describe('DefaultVideoFrameProcessorPipeline', () => {
       domMockBehavior.createElementCaptureStream = activeStream;
       const outputStream = pipe.getActiveOutputMediaStream();
       expect(outputStream).to.deep.equal(activeStream);
+      console.log("**** outpput streamm: ", outputStream);
       // disable the output stream to trigger a recapture
       // @ts-ignore
       activeStream.active = false;

@@ -753,7 +753,10 @@ export class DemoMeetingApp
 
         const localTile = this.audioVideo.getLocalVideoTile();
         if (localTile) {
+          console.log("******localTile is**** :", localTile);
           mixed.addTrack(localTile.state().boundVideoStream.getVideoTracks()[0]);
+          console.log("*****Add tracks****: ", localTile.state().boundVideoStream.getVideoTracks()[0])
+          console.log("****mixed is ****", mixed);
         }
 
         // We need to get access to the media stream broker, which requires knowing
@@ -764,13 +767,14 @@ export class DemoMeetingApp
         mixed.addTrack(input.getAudioTracks()[0]);
 
         recorder = new MediaRecorder(mixed, { mimeType: 'video/webm; codecs=vp9' });
-        console.info('Setting recorder to', recorder);
+        console.info('****Setting recorder to****', recorder);
         recorder.ondataavailable = (event) => {
           if (event.data.size) {
             console.log("****ondataavailable ***: ", event.data);
             console.log("****ondataavailable ***: ", event);
             chunks.push(event.data);
           }
+          console.log("****chunks is ****: ", chunks);
         };
 
         recorder.onstop = () => {
@@ -2692,6 +2696,7 @@ export class DemoMeetingApp
     const pinButtonElement = document.getElementById(
       `video-pin-${tileIndex}`
     ) as HTMLButtonElement;
+    this.log('***Video tile**: ${tileElement} ** ${nameplateElement} ** ${attendeeIdElement}** ${videoElement}')
 
 
     pauseButtonElement.removeEventListener('click', this.tileIndexToPauseEventListener[tileIndex]);

@@ -117,7 +117,7 @@ export default class CreatePeerConnectionTask extends BaseTask implements Remova
   private trackAddedHandler = (event: RTCTrackEvent): void => {
     const track: MediaStreamTrack = event.track;
     this.context.logger.info(
-      `received track event: kind=${track.kind} id=${track.id} label=${track.label}`
+      `***received track event: kind=${track.kind} id=${track.id} label=${track.label} event= ${event} track=${track}`
     );
 
     if (event.transceiver && event.transceiver.currentDirection === 'inactive') {
@@ -142,6 +142,9 @@ export default class CreatePeerConnectionTask extends BaseTask implements Remova
       this.logger.debug(() => {
         return `getting video track type (unified-plan)`;
       });
+      this.logger.info(
+        `****video tracks is video input ${track}`
+      );
       return this.context.transceiverController.trackIsVideoInput(track);
     }
     this.logger.debug(() => {
@@ -165,7 +168,7 @@ export default class CreatePeerConnectionTask extends BaseTask implements Remova
     const attendeeId = this.context.videoStreamIndex.attendeeIdForTrack(trackId);
     if (this.context.videoTileController.haveVideoTileForAttendeeId(attendeeId)) {
       this.context.logger.info(
-        `Not adding remote track. Already have tile for attendeeId:  ${attendeeId}`
+        `*****Not adding remote track. Already have tile for attendeeId:  ${attendeeId}`
       );
       return;
     }
@@ -173,13 +176,16 @@ export default class CreatePeerConnectionTask extends BaseTask implements Remova
     const tile = this.context.videoTileController.addVideoTile();
     let streamId: number | null = this.context.videoStreamIndex.streamIdForTrack(trackId);
     if (typeof streamId === 'undefined') {
-      this.logger.warn(`stream not found for tile=${tile.id()} track=${trackId}`);
+      this.logger.warn(`***stream not found for tile=${tile.id()} track=${trackId}`);
       streamId = null;
     }
 
     for (let i = 0; i < this.trackEvents.length; i++) {
       const trackEvent: string = this.trackEvents[i];
       const videoTracks = stream.getVideoTracks();
+      this.logger.info(
+        `****video trackss ${videoTracks}`
+      );
       if (videoTracks && videoTracks.length) {
         const videoTrack: MediaStreamTrack = videoTracks[0];
         const callback: EventListenerOrEventListenerObject = (): void => {
@@ -216,7 +222,10 @@ export default class CreatePeerConnectionTask extends BaseTask implements Remova
     const externalUserId = this.context.videoStreamIndex.externalUserIdForTrack(trackId);
     tile.bindVideoStream(attendeeId, false, stream, width, height, streamId, externalUserId);
     this.logger.info(
-      `video track added, created tile=${tile.id()} track=${trackId} streamId=${streamId}`
+      `***video track added, created tile=${tile.id()} track=${trackId} streamId=${streamId}`
+    );
+    this.logger.info(
+      `*** video track added, created tile=${tile}`
     );
 
     let endEvent = 'removetrack';

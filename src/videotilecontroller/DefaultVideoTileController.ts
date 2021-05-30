@@ -46,6 +46,7 @@ export default class DefaultVideoTileController implements VideoTileController {
 
   bindVideoElement(tileId: number, videoElement: HTMLVideoElement | null): void {
     const tile = this.getVideoTile(tileId);
+    console.log("**** bindVideoElement: ", tile);
     if (tile === null) {
       this.logger.warn(`Ignoring video element binding for unknown tile id ${tileId}`);
       return;
@@ -197,8 +198,10 @@ export default class DefaultVideoTileController implements VideoTileController {
   }
 
   haveVideoTilesWithStreams(): boolean {
+    console.log("***HaveVideoTilesWithStreams: ");
     for (const tile of this.getAllVideoTiles()) {
       if (tile.state().boundVideoStream) {
+        console.log("****Havevideotilewithstreams: tile", tile);
         return true;
       }
     }
@@ -217,6 +220,7 @@ export default class DefaultVideoTileController implements VideoTileController {
 
   captureVideoTile(tileId: number): ImageData | null {
     const tile = this.getVideoTile(tileId);
+    console.log("***captureVideoTile:  ", {tile});
     if (!tile) {
       return null;
     }
