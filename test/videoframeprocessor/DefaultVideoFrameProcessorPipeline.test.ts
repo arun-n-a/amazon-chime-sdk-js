@@ -367,6 +367,7 @@ describe('DefaultVideoFrameProcessorPipeline', () => {
         }
         async process(buffers: VideoFrameBuffer[]): Promise<VideoFrameBuffer[]> {
           await new Promise(resolve => setTimeout(resolve, (1000 / 15) * 3));
+          console.log("**** process vframebuffer: ", buffers);
           return buffers;
         }
       }

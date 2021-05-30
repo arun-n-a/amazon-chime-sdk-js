@@ -10,6 +10,7 @@ import VideoFrameProcessor from './VideoFrameProcessor';
  */
 export default class NoOpVideoFrameProcessor implements VideoFrameProcessor {
   async process(buffers: VideoFrameBuffer[]): Promise<VideoFrameBuffer[]> {
+    console.log("*** process buffers is: ", buffers);
     return buffers;
   }
 

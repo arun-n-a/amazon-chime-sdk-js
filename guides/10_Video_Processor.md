@@ -138,6 +138,7 @@ async process(buffers: VideoFrameBuffer[]): Promise<VideoFrameBuffer[]> {
 
   // replace the video frame with the resized one for subsequent processor
   buffers[0] = this.canvasVideoFrameBuffer;
+  console.log("**** Cnavasvideoframe buffer**: ", buffers);
   return buffers;
 }
 ```
