@@ -29,20 +29,24 @@ export default class CircularCut implements VideoFrameProcessor {
   process(buffers: VideoFrameBuffer[]): Promise<VideoFrameBuffer[]> {
     // assuming one video stream
     console.log("******Circularcuts***");
-    console.log("******Circularcuts*** buffers: ", buffers);
-    console.log("******Circularcuts*** buffers index zero: ", buffers[0]);
-    console.log("******Circularcuts*** canvas element: ", buffers[0].asCanvasElement());
+    // console.log("******Circularcuts*** buffers: ", buffers);
+    // console.log("******Circularcuts*** buffers index zero: ", buffers[0]);
+    // console.log("******Circularcuts*** canvas element: ", buffers[0].asCanvasElement());
     const canvas = buffers[0].asCanvasElement();
-    console.log("*****Circular cut canvas****: ", canvas);
+    // console.log("*****Circular cut canvas****: ", canvas);
     const frameWidth = canvas.width;
     const frameHeight = canvas.height;
-
+    console.log("****circular cut frameWidth is ", frameWidth);
+    console.log("****circular cut frameHeight is ", frameHeight);
+    console.log("***circular cut this.sourceWidth", this.sourceWidth);
+    console.log("***circular cut this.sourceWidth", this.sourceHeight);
     if (frameWidth === 0 || frameHeight === 0) {
+      console.log("***promise resolve buffers******");
       console.log("***promise resolve buffers", buffers);
       return Promise.resolve(buffers);
     }
-    console.log("****Promise not happened****");
     if (this.sourceWidth !== frameWidth || this.sourceHeight !== frameHeight) {
+      console.log("****circularcut second if condition")
       this.sourceWidth = frameWidth;
       this.sourceHeight = frameHeight;
 
@@ -71,7 +75,7 @@ export default class CircularCut implements VideoFrameProcessor {
     console.log("*** frameData is ****", frameData);
     buffers[0] = this.canvasVideoFrameBuffer;
     console.log("****Final buffers 0****", buffers);
-    console.log("*****this.canvasVideoFrameBuffer*****: ", buffers[0]);
+    // console.log("*****this.canvasVideoFrameBuffer*****: ", buffers[0]);
     return Promise.resolve(buffers);
   }
 }
