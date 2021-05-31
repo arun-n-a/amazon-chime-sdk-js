@@ -38,9 +38,10 @@ export default class CircularCut implements VideoFrameProcessor {
     const frameHeight = canvas.height;
 
     if (frameWidth === 0 || frameHeight === 0) {
+      console.log("***promise resolve buffers", buffers);
       return Promise.resolve(buffers);
     }
-
+    console.log("****Promise not happened****");
     if (this.sourceWidth !== frameWidth || this.sourceHeight !== frameHeight) {
       this.sourceWidth = frameWidth;
       this.sourceHeight = frameHeight;
@@ -64,9 +65,13 @@ export default class CircularCut implements VideoFrameProcessor {
     }
 
     this.targetCanvasCtx.drawImage(canvas, 0, 0);
-
+    console.log("****Draw Image******");
+    var frameData = this.targetCanvasCtx.getImageData(0, 0, this.sourceWidth, this.sourceHeight);
+    console.log("****var frames***");
+    console.log("*** frameData is ****", frameData);
     buffers[0] = this.canvasVideoFrameBuffer;
-    console.log("*****this.canvasVideoFrameBuffer*****: ", this.canvasVideoFrameBuffer);
+    console.log("****Final buffers 0****", buffers);
+    console.log("*****this.canvasVideoFrameBuffer*****: ", buffers[0]);
     return Promise.resolve(buffers);
   }
 }
