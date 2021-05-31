@@ -2340,6 +2340,7 @@ export class DemoMeetingApp
     }
 
     if (videoFilter === 'CircularCut') {
+      console.log("***VideoFilter is Circular Cut***");
       return new CircularCut();
     }
 

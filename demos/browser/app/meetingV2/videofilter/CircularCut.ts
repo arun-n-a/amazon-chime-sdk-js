@@ -6,7 +6,6 @@ import {
   VideoFrameBuffer,
   VideoFrameProcessor,
 } from 'amazon-chime-sdk-js';
-
 /**
  * [[CircularCut]] is an implementation of {@link VideoFrameProcessor} for demonstration purpose.
  * It updates the first {@link VideoFrameBuffer} from the input array and clip the whole frame to a circle.
@@ -19,9 +18,7 @@ export default class CircularCut implements VideoFrameProcessor {
   private canvasVideoFrameBuffer = new CanvasVideoFrameBuffer(this.targetCanvas);
   private sourceWidth: number = 0;
   private sourceHeight: number = 0;
-
   constructor(private radius: number = 150) {}
-
   destroy(): Promise<void> {
     this.targetCanvasCtx = null;
     this.targetCanvas = null;
@@ -31,10 +28,12 @@ export default class CircularCut implements VideoFrameProcessor {
 
   process(buffers: VideoFrameBuffer[]): Promise<VideoFrameBuffer[]> {
     // assuming one video stream
-    console.log("******Circularcuts***", buffers);
-    console.log("******Circularcuts***", buffers[0].asCanvasElement());
+    console.log("******Circularcuts***");
+    console.log("******Circularcuts*** buffers: ", buffers);
+    console.log("******Circularcuts*** buffers index zero: ", buffers[0]);
+    console.log("******Circularcuts*** canvas element: ", buffers[0].asCanvasElement());
     const canvas = buffers[0].asCanvasElement();
-    console.log("*****Circular cut****", canvas);
+    console.log("*****Circular cut canvas****: ", canvas);
     const frameWidth = canvas.width;
     const frameHeight = canvas.height;
 
