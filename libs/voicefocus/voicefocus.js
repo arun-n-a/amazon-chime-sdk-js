@@ -290,6 +290,7 @@ const createAudioContext = (contextHint = DEFAULT_CONTEXT_HINT) => {
 };
 exports.createAudioContext = createAudioContext;
 const getAudioInput = (context, inputOptions, voiceFocusOptions) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('***getAudioInputgetAudioInput: ', context);
     var _a, _b;
     const { constraints, spec, delegate, preload = true, options } = inputOptions;
     const { logger } = voiceFocusOptions;

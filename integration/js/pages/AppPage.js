@@ -473,6 +473,7 @@ class AppPage {
             // logs.push(`frequency data : ${floatFrequencyData}`);
             let maxBinDb = -Infinity;
             let hotBinFrequency = 0;
+            console.log("***Audiocehck frequency: ", audioContext);
             const binSize = audioContext.sampleRate / analyser.fftSize; // default fftSize is 2048
             console.log("****floatFrequencyData is :", floatFrequencyData);
             for (let i = 0; i < floatFrequencyData.length; i++) {

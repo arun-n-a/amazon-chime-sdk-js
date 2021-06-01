@@ -2245,12 +2245,14 @@ describe('DefaultDeviceController', () => {
 
     it('uses a single instance of AudioContext', () => {
       const audioContext = DefaultDeviceController.getAudioContext();
+      console.log("*** single instance audioContext: ", audioContext);
       const audioContext2 = DefaultDeviceController.getAudioContext();
       expect(audioContext).to.equal(audioContext2);
     });
 
     it('closes an AudioContext instance and creates a new object', () => {
       const audioContext = DefaultDeviceController.getAudioContext();
+      console.log("*** closes instance audioContext: ", audioContext);
       DefaultDeviceController.closeAudioContext();
       const audioContext2 = DefaultDeviceController.getAudioContext();
       expect(audioContext).to.not.equal(audioContext2);

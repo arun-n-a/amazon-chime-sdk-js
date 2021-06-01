@@ -105,7 +105,7 @@ export default class DefaultMeetingReadinessChecker implements MeetingReadinessC
     this.gainNode.gain.linearRampToValueAtTime(0, startTime);
     this.gainNode.gain.linearRampToValueAtTime(maxGainValue, startTime + rampSec);
     this.oscillatorNode.start();
-
+    console.log("***this.audioContext: ", this.audioContext);
     // Because we always use `DefaultAudioMixController`, and both this class
     // and DAMC use `DefaultBrowserBehavior`, it is not possible for the `bindAudioDevice` call here to throw.
     // Nevertheless, we `catch` here and disable code coverage.
