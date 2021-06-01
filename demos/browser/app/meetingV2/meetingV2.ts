@@ -163,6 +163,7 @@ class TestSound {
     gainNode.gain.value = 0;
     const oscillatorNode = audioContext.createOscillator();
     oscillatorNode.frequency.value = this.frequency;
+    console.log("****MeetingV2 oscillatorNode**: ", oscillatorNode.frequency.value);
     oscillatorNode.connect(gainNode);
     const destinationStream = audioContext.createMediaStreamDestination();
     gainNode.connect(destinationStream);
@@ -177,6 +178,8 @@ class TestSound {
     gainNode.gain.linearRampToValueAtTime(0, startTime + this.rampSec * 2 + this.durationSec);
     oscillatorNode.start();
     const audioMixController = new DefaultAudioMixController(this.logger);
+    console.log("***meetingv2ts audioContext: ", audioContext); 
+    console.log("***meetingv2ts audioMixController: ", audioMixController); 
     if (new DefaultBrowserBehavior().supportsSetSinkId()) {
       try {
         // @ts-ignore
@@ -1763,6 +1766,7 @@ export class DemoMeetingApp
         }
         this.switchToFlow('flow-need-permission');
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        console.log('***meetinv2 stream iss: ', stream);
         this.switchToFlow('flow-devices');
         return stream;
       }
@@ -2333,7 +2337,7 @@ export class DemoMeetingApp
   }
 
   private videoFilterToProcessor(videoFilter: VideoFilterName): VideoFrameProcessor | null {
-    this.log(`Choosing video filter ${videoFilter}`);
+    this.log(`*****Choosing video filter ${videoFilter} ***`);
 
     if (videoFilter === 'Emojify') {
       return new EmojifyVideoFrameProcessor('🚀');

@@ -261,7 +261,10 @@ export default class DefaultVideoTile implements DevicePixelRatioObserver, Video
     canvas.height = video.videoHeight || video.height;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    return ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var frames = ctx.getImageData(0, 0, canvas.width, canvas.height)
+    console.log("****Default video tiles*****: ", frames.data);
+    // return ctx.getImageData(0, 0, canvas.width, canvas.height);
+    return frames
   }
 
   private sendTileStateUpdate(): void {

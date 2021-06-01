@@ -428,6 +428,8 @@ class AppPage {
         try {
           let stream = document.getElementById('meeting-audio').srcObject;
           let source = audioContext.createMediaStreamSource(stream);
+          console.log("***audioContext.createMediaStreamSource stream: ", stream);
+          console.log("***audioContext.createMediaStreamSource source: ", source);
           let analyser = audioContext.createAnalyser();
           source.connect(analyser);
           let byteFrequencyData = new Uint8Array(analyser.frequencyBinCount);
@@ -472,6 +474,7 @@ class AppPage {
             let maxBinDb = -Infinity;
             let hotBinFrequency = 0;
             const binSize = audioContext.sampleRate / analyser.fftSize; // default fftSize is 2048
+            console.log("****floatFrequencyData is :", floatFrequencyData);
             for (let i = 0; i < floatFrequencyData.length; i++) {
               const v = floatFrequencyData[i];
               if (v > maxBinDb) {
@@ -532,7 +535,7 @@ class AppPage {
         })
       }
     }
-    this.logger(`Audio check success rate: ${res.percentage * 100}%`);
+    this.logger(`**Audio check success rate: ${res.percentage * 100}%`);
     if (res.percentage >= 0.75) {
       return true
     }

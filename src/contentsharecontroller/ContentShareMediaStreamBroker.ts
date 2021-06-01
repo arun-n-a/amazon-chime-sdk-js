@@ -49,9 +49,11 @@ export default class ContentShareMediaStreamBroker implements MediaStreamBroker 
       // @ts-ignore
       streamConstraints.video.mandatory.chromeMediaSourceId
     ) {
+      console.log('*** acquireDisplayInputStream streamConstraints: ', streamConstraints);
       return navigator.mediaDevices.getUserMedia(streamConstraints);
     }
     // @ts-ignore https://github.com/microsoft/TypeScript/issues/31821
+    console.log("*** navigator media devices diaplymedia: ", navigator.mediaDevices.getDisplayMedia(streamConstraints));
     return navigator.mediaDevices.getDisplayMedia(streamConstraints);
   }
 

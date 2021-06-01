@@ -411,7 +411,7 @@ export default class DefaultDeviceController
     }
 
     const context = DefaultDeviceController.getAudioContext();
-
+    console.log("***chooseAudioTransformInputDevice context is: ", context);
     if (context instanceof OfflineAudioContext) {
       // Nothing to do.
     } else {
@@ -598,6 +598,8 @@ export default class DefaultDeviceController
     const audioContext = DefaultDeviceController.getAudioContext();
     const analyser = audioContext.createAnalyser() as RemovableAnalyserNode;
     const source = audioContext.createMediaStreamSource(stream);
+    console.log('**** createAnalyserNodeForStream source is: ', source);
+    console.log('**** createAnalyserNodeForStream stream is: ', stream);
     source.connect(analyser);
     this.trace('createAnalyserNodeForAudioInput');
 
@@ -961,7 +963,6 @@ export default class DefaultDeviceController
     const outputNode = audioContext.createMediaStreamDestination();
     if (!toneHz) {
       const source = audioContext.createBufferSource();
-
       // The AudioContext object uses the sample rate of the default output device
       // if not specified. Creating an AudioBuffer object with the output device's
       // sample rate fails in some browsers, e.g. Safari with a Bluetooth headphone.
@@ -971,6 +972,7 @@ export default class DefaultDeviceController
           audioContext.sampleRate * 5,
           audioContext.sampleRate
         );
+        console.log("****Try source.buffer***: ", source.buffer);
       } catch (error) {
         if (error && error.name === 'NotSupportedError') {
           source.buffer = audioContext.createBuffer(
@@ -978,6 +980,7 @@ export default class DefaultDeviceController
             DefaultDeviceController.defaultSampleRate * 5,
             DefaultDeviceController.defaultSampleRate
           );
+          console.log("****Catch source.buffer***: ", source.buffer);
         } else {
           throw error;
         }
@@ -990,12 +993,14 @@ export default class DefaultDeviceController
       source.loop = true;
       source.connect(outputNode);
       source.start();
+      console.log("***Audio after loop***: ", source.buffer);
     } else {
       const gainNode = audioContext.createGain();
       gainNode.gain.value = 0.1;
       gainNode.connect(outputNode);
       const oscillatorNode = audioContext.createOscillator();
       oscillatorNode.frequency.value = toneHz;
+      console.log("***oscillatorNode is ", oscillatorNode);
       oscillatorNode.connect(gainNode);
       oscillatorNode.start();
     }
@@ -1357,10 +1362,12 @@ export default class DefaultDeviceController
       if (kind === 'audio' && device === null) {
         newDevice.stream = DefaultDeviceController.createEmptyAudioDevice() as MediaStream;
         newDevice.constraints = null;
+        console.log("***if newDevice.stream STREAM: ", newDevice.stream);
       } else if (stream) {
         this.logger.info(`using media stream ${stream.id} for ${kind} device`);
         newDevice.stream = stream;
         newDevice.constraints = proposedConstraints;
+        console.log("***elseif newDevice.stream STREAM: ", newDevice.stream);
       } else {
         newDevice.stream = await navigator.mediaDevices.getUserMedia(proposedConstraints);
         newDevice.constraints = proposedConstraints;

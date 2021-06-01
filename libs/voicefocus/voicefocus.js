@@ -296,11 +296,13 @@ const getAudioInput = (context, inputOptions, voiceFocusOptions) => __awaiter(vo
     const config = yield VoiceFocus.configure(spec, voiceFocusOptions);
     if (!config.supported) {
         (_a = voiceFocusOptions.logger) === null || _a === void 0 ? void 0 : _a.warn('Voice Focus not supported; returning standard stream.');
+        console.log("window.navigator.mediaDevices.getUserMedia(constraints): ", window.navigator.mediaDevices.getUserMedia(constraints));
         return window.navigator.mediaDevices.getUserMedia(constraints);
     }
     const factory = yield VoiceFocus.init(config, { delegate, preload, logger });
     const agc = ((_b = inputOptions.options) === null || _b === void 0 ? void 0 : _b.agc) || DEFAULT_AGC_SETTING;
     const input = yield window.navigator.mediaDevices.getUserMedia(mungeConstraints(constraints, agc));
+    console.log('****getAudioInputgetAudioInput: ', input);
     return factory.applyToStream(input, context, options).then(result => result.stream);
 });
 exports.getAudioInput = getAudioInput;
