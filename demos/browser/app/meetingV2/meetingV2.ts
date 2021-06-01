@@ -866,16 +866,17 @@ export class DemoMeetingApp
             await this.audioVideo.bindAudioElement(
               document.getElementById('meeting-audio') as HTMLAudioElement
             );
+
           } catch (e) {
             fatal(e);
-            this.log('Failed to bindAudioElement', e);
+            this.log('***Failed to bindAudioElement', e);
           }
         } else {
           this.audioVideo.unbindAudioElement();
         }
       });
     });
-
+    console.log("****this.audioVideo: ", this.audioVideo);
     const buttonVideoStats = document.getElementById('button-video-stats');
     buttonVideoStats.addEventListener('click', () => {
       if (this.isButtonOn('button-video-stats')) {
