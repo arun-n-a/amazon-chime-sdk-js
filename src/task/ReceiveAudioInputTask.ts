@@ -16,12 +16,12 @@ export default class ReceiveAudioInputTask extends BaseTask {
 
   async run(): Promise<void> {
     if (!this.context.meetingSessionConfiguration?.urls?.audioHostURL) {
-      this.context.logger.info('No audio connection: not acquiring audio input');
+      this.context.logger.info('***No audio connection: not acquiring audio input');
       return;
     }
 
     if (this.context.activeAudioInput) {
-      this.context.logger.info('an active audio input exists');
+      this.context.logger.info('***an active audio input exists');
       return;
     }
     let audioInput: MediaStream | undefined;

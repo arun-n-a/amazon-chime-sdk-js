@@ -12,6 +12,8 @@ import Device from './Device';
  * Subclass `SingleNodeAudioTransformDevice`, implementing `createSingleAudioNode`.
  */
 export default abstract class SingleNodeAudioTransformDevice<T extends AudioNode> {
+  
+ 
   protected node: T | undefined;
 
   constructor(protected inner: Device) {}

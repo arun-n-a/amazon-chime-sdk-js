@@ -410,6 +410,7 @@ class AppPage {
   }
 
   async audioCheck(stepInfo, expectedState) {
+    console.log("*** audioCheck");
     let res = undefined;
     try {
       res = await this.driver.executeAsyncScript(async (expectedState) => {

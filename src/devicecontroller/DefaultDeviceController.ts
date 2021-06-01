@@ -402,6 +402,7 @@ export default class DefaultDeviceController
   }
 
   private async chooseAudioTransformInputDevice(device: AudioTransformDevice): Promise<void> {
+    console.log("***chooseAudioTransformInputDevice");
     if (this.transform?.device === device) {
       return;
     }
@@ -448,6 +449,7 @@ export default class DefaultDeviceController
   }
 
   private async chooseVideoTransformInputDevice(device: VideoTransformDevice): Promise<void> {
+    console.log("****chooseVideoTransformInputDevice***");
     if (device === this.chosenVideoTransformDevice) {
       this.logger.info('Reselecting same VideoTransformDevice');
       return;
@@ -591,6 +593,7 @@ export default class DefaultDeviceController
     if (!this.activeDevices['audio']) {
       return null;
     }
+    console.log("create analyse node for raw audio input: ", this.activeDevices['audio']);
     return this.createAnalyserNodeForStream(this.activeDevices['audio'].stream);
   }
 
@@ -656,6 +659,7 @@ export default class DefaultDeviceController
   }
 
   mixIntoAudioInput(stream: MediaStream): MediaStreamAudioSourceNode {
+    console.log("****mixIntoAudioInput****");
     let node: MediaStreamAudioSourceNode | null = null;
     if (this.useWebAudio) {
       node = DefaultDeviceController.getAudioContext().createMediaStreamSource(stream);
@@ -697,6 +701,7 @@ export default class DefaultDeviceController
   }
 
   async acquireDisplayInputStream(streamConstraints: MediaStreamConstraints): Promise<MediaStream> {
+    console.log("***acquirediaplay i/p stream: ", streamConstraints);
     if (
       streamConstraints &&
       streamConstraints.video &&
@@ -963,6 +968,8 @@ export default class DefaultDeviceController
     const outputNode = audioContext.createMediaStreamDestination();
     if (!toneHz) {
       const source = audioContext.createBufferSource();
+      console.log("***synthesizeAudioDevice Source: ", source);
+      console.log("***synthesizeAudioDevice audiocontext: ", audioContext);
       // The AudioContext object uses the sample rate of the default output device
       // if not specified. Creating an AudioBuffer object with the output device's
       // sample rate fails in some browsers, e.g. Safari with a Bluetooth headphone.
@@ -973,6 +980,7 @@ export default class DefaultDeviceController
           audioContext.sampleRate
         );
         console.log("****Try source.buffer***: ", source.buffer);
+        console.log("****Try source***: ", source);
       } catch (error) {
         if (error && error.name === 'NotSupportedError') {
           source.buffer = audioContext.createBuffer(
@@ -1003,7 +1011,9 @@ export default class DefaultDeviceController
       console.log("***oscillatorNode is ", oscillatorNode);
       oscillatorNode.connect(gainNode);
       oscillatorNode.start();
+      console.log("***Audio else oscillatorNode***: ", oscillatorNode);
     }
+    console.log("***synthess outputNode.stream: ", outputNode.stream);
     return outputNode.stream;
   }
 
@@ -1011,7 +1021,7 @@ export default class DefaultDeviceController
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     canvas.width = 480;
     canvas.height = (canvas.width / 16) * 9;
-
+    console.log("***synthesizeVideoDevice canvas***: ", canvas);
     const colorBars = makeColorBars(canvas, colorOrPattern);
 
     if (!colorBars) {
@@ -1608,6 +1618,7 @@ export default class DefaultDeviceController
   private async acquireInputStream(kind: string): Promise<MediaStream> {
     if (kind === 'audio') {
       if (this.useWebAudio) {
+        console.log("***acquireinputstream this.useWebAudio: ", this.useWebAudio);
         const dest = this.getMediaStreamDestinationNode();
         return dest.stream;
       }
@@ -1721,6 +1732,8 @@ export default class DefaultDeviceController
     );
     const output = this.getMediaStreamOutputNode();
     this.audioInputSourceNode.connect(output);
+    console.log("***attachAudioInputStreamtoAudiocontext: stream", stream);
+    console.log("***attachAudioInputStreamtoAudiocontext: output", output);
   }
 
   /**
@@ -1730,6 +1743,7 @@ export default class DefaultDeviceController
     if (!this.audioInputDestinationNode) {
       this.audioInputDestinationNode = DefaultDeviceController.getAudioContext().createMediaStreamDestination();
     }
+    console.log("***GetMediaStreamDestinationNode: this.audioInputDestinationNode", this.audioInputDestinationNode);
     return this.audioInputDestinationNode;
   }
 
@@ -1752,6 +1766,7 @@ export default class DefaultDeviceController
         options
       );
     }
+    console.log("****DefaultDeviceController.audioContext: ", DefaultDeviceController.audioContext);
     return DefaultDeviceController.audioContext;
   }
 

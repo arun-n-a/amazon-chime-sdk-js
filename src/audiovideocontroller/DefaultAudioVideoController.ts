@@ -803,6 +803,7 @@ export default class DefaultAudioVideoController
   }
 
   private async actionUpdate(notify: boolean): Promise<void> {
+    console.log("** TODO: do not block other updates while waiting for video input");
     // TODO: do not block other updates while waiting for video input
     try {
       await new SerialGroupTask(this.logger, this.wrapTaskName('AudioVideoUpdate'), [
@@ -992,6 +993,7 @@ export default class DefaultAudioVideoController
   }
 
   private async enforceBandwidthLimitationForSender(maxBitrateKbps: number): Promise<void> {
+    console.log("****enforceBandwidthLimitationForSender");
     if (this.meetingSessionContext.browserBehavior.requiresUnifiedPlan()) {
       await this.meetingSessionContext.transceiverController.setVideoSendingBitrateKbps(
         maxBitrateKbps

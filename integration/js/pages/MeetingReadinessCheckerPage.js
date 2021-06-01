@@ -129,6 +129,7 @@ class MeetingReadinessCheckerPage {
           await sleep(5000);
 
           const checkFrequency = (targetReceiveFrequency) => {
+            console.log('****checkFrequency');
             analyser.getFloatFrequencyData(floatFrequencyData);
             let maxBinDb = -Infinity;
             let hotBinFrequency = 0;

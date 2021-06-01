@@ -2151,7 +2151,7 @@ export class DemoMeetingApp
 
   startAudioPreview(): void {
     this.setAudioPreviewPercent(0);
-
+    console.log("****startAudioPreview");
     // Recreate.
     if (this.analyserNode) {
       // Disconnect the analyser node from its inputs and outputs.
@@ -2162,6 +2162,7 @@ export class DemoMeetingApp
     }
 
     const analyserNode = this.audioVideo.createAnalyserNodeForAudioInput();
+    console.log("***startaduifopreview analyserNode: ", analyserNode);
 
     if (!analyserNode) {
       return;
@@ -2169,6 +2170,7 @@ export class DemoMeetingApp
 
     if (!analyserNode.getByteTimeDomainData) {
       document.getElementById('audio-preview').parentElement.style.visibility = 'hidden';
+      
       return;
     }
 
@@ -2178,6 +2180,8 @@ export class DemoMeetingApp
     this.analyserNodeCallback = () => {
       if (frameIndex === 0) {
         analyserNode.getByteTimeDomainData(data);
+        console.log("****audioPreview dataaa: ", data);
+        console.log("****audioPreview getByteTimeDomainData: ", analyserNode.getByteTimeDomainData(data));
         const lowest = 0.01;
         let max = lowest;
         for (const f of data) {
