@@ -337,6 +337,7 @@ export default class DOMMockBuilder {
       }
 
       getAudioTracks(): typeof GlobalAny.MediaStreamTrack[] {
+        console.log("****This tracks: ", this.tracks);
         return this.tracks;
       }
 

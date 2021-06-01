@@ -776,6 +776,7 @@ export default class DefaultAudioVideoController
     this.connectionHealthData.setConnectionStartTime();
 
     const audioTrack = audioStream.getAudioTracks()[0];
+    console.log("*** restartLocalAudio AudioTrack is: ", audioTrack);
     if (!this.meetingSessionContext || !this.meetingSessionContext.peer) {
       throw new Error('no active meeting and peer connection');
     }

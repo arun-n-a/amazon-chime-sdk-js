@@ -768,6 +768,7 @@ export class DemoMeetingApp
         const av: DefaultAudioVideoController = this.audioVideo.audioVideoController;
         const input = await av.mediaStreamBroker.acquireAudioInputStream();
         mixed.addTrack(input.getAudioTracks()[0]);
+        console.log("**** mixed.addTrack isss: ", mixed.addTrack);
 
         recorder = new MediaRecorder(mixed, { mimeType: 'video/webm; codecs=vp9' });
         console.info('****Setting recorder to****', recorder);

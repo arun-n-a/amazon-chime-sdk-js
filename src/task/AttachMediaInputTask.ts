@@ -24,6 +24,7 @@ export default class AttachMediaInputTask extends BaseTask {
 
     if (audioInput) {
       const audioTracks = audioInput.getAudioTracks();
+      console.log("**** AttachMediaInputTask audioTracks is: ", audioTracks);
       if (this.context.browserBehavior.requiresUnifiedPlan()) {
         this.context.logger.info('attaching audio track to peer connection (unified-plan)');
         await transceiverController.setAudioInput(audioTracks.length ? audioTracks[0] : null);
