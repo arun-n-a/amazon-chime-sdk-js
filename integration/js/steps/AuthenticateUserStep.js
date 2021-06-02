@@ -24,13 +24,14 @@ class AuthenticateUserStep extends AppTestStep {
 
   async run() {
     this.logger("attendee id: " + this.attendee_id);
+    console.log("** Run attendeee id: ", this.attendee_id);
     await this.page.enterAttendeeName(this.attendee_id);
     if (this.useSimulcastFlag) {
       this.logger("choose to use simulcast");
       await this.page.chooseUseSimulcast();
     }
     if (this.useWebAudioFlag) {
-      this.logger("choose to use Web Audio");
+      this.logger("**choose to use Web Audio**");
       await this.page.chooseUseWebAudio();
     }
     await this.page.authenticate();

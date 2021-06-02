@@ -36,7 +36,7 @@ import VideoQualitySettings from './VideoQualitySettings';
  *
  * ```typescript
  * (): Promise<MediaStream> => {
- *   return navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+ *   return navigator.mediaDevices.{ audio: true, video: true });
  * }
  * ```
  *

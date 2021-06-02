@@ -46,6 +46,7 @@ export default class NoOpDeviceController
   removeDeviceChangeObserver(_observer: DeviceChangeObserver): void {}
 
   createAnalyserNodeForAudioInput(): RemovableAnalyserNode | null {
+    console.log("***CreateAnalyserNodeAudioInputNoop**");
     return null;
   }
 

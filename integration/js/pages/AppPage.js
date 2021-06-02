@@ -98,11 +98,12 @@ class AppPage {
 
   async chooseUseWebAudio() {
     let webAudioFeature = await this.driver.findElement(elements.webAudioFeature);
+    console.log("***chooseUseWebAudio webAudioFeature: ", webAudioFeature);
     let webAudioFeatureLabel = await this.driver.findElement(elements.webAudioFeatureLabel);
-
+    console.log("***chooseUseWebAudio webAudioFeatureLabel: ", webAudioFeatureLabel);
     // Click the label because it's on top.
     if (await webAudioFeature.isSelected()) {
-      console.log('Web Audio is selected');
+      console.log('***Web Audio is selected****');
     } else {
       await webAudioFeatureLabel.click();
     }

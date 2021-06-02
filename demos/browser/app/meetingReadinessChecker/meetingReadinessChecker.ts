@@ -474,6 +474,7 @@ export class DemoMeetingApp {
     this.audioVideo.setDeviceLabelTrigger(
       async (): Promise<MediaStream> => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        console.log("**this.audioVideo.setDeviceLabelTrigger stream: ", stream);
         return stream;
       }
     );

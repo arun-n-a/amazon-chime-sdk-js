@@ -562,6 +562,7 @@ export default class DefaultDeviceController
   }
 
   createAnalyserNodeForAudioInput(): RemovableAnalyserNode | null {
+    console.log("***this.activeDevices['audio']: ", this.activeDevices['audio']);
     if (!this.activeDevices['audio']) {
       return null;
     }
@@ -601,8 +602,9 @@ export default class DefaultDeviceController
     const audioContext = DefaultDeviceController.getAudioContext();
     const analyser = audioContext.createAnalyser() as RemovableAnalyserNode;
     const source = audioContext.createMediaStreamSource(stream);
-    console.log('**** createAnalyserNodeForStream source is: ', source);
-    console.log('**** createAnalyserNodeForStream stream is: ', stream);
+    console.log("***createAnalyserNodeForStream audioContext is: ", audioContext);
+    console.log('***createAnalyserNodeForStream source is: ', source);
+    console.log('***createAnalyserNodeForStream stream is: ', stream);
     source.connect(analyser);
     this.trace('createAnalyserNodeForAudioInput');
 
@@ -613,7 +615,7 @@ export default class DefaultDeviceController
         // This can fail in some unusual cases, but this is best-effort.
       }
     };
-
+    console.log("***ANALYSERRR: ",analyser);
     return analyser;
   }
 
@@ -659,10 +661,13 @@ export default class DefaultDeviceController
   }
 
   mixIntoAudioInput(stream: MediaStream): MediaStreamAudioSourceNode {
-    console.log("****mixIntoAudioInput****");
+    console.log("****mixIntoAudioInput**");
+    console.log("****mixIntoAudioInput** Stream", stream);
     let node: MediaStreamAudioSourceNode | null = null;
+    console.log("***mixIntoAudioInput node: ", node);
     if (this.useWebAudio) {
       node = DefaultDeviceController.getAudioContext().createMediaStreamSource(stream);
+      console.log("***mixIntoAudioInput node2: ", node);
       node.connect(this.getMediaStreamOutputNode());
     } else {
       this.logger.warn('WebAudio is not enabled, mixIntoAudioInput will not work');

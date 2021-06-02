@@ -763,6 +763,7 @@ export default class DefaultAudioVideoController
   }
 
   async restartLocalAudio(callback: () => void): Promise<void> {
+    console.log("***restartLocalAudio**");
     let audioStream: MediaStream | null = null;
     try {
       audioStream = await this.mediaStreamBroker.acquireAudioInputStream();

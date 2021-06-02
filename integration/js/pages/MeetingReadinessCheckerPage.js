@@ -104,6 +104,7 @@ class MeetingReadinessCheckerPage {
   }
 
   async audioFrequencyCheck() {
+    console.log("***AudioFrequency Check **");
     let res = undefined;
     try {
       res = await this.driver.executeAsyncScript(async () => {
@@ -116,20 +117,23 @@ class MeetingReadinessCheckerPage {
         let successfulToneChecks = 0;
         let totalToneChecks = 0;
         let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        console.log("***audioContextfreqChecker: ", audioContext);
         let minToneError = Infinity;
         let maxToneError = -Infinity;
         try {
           let stream = document.getElementById("speaker-test-audio-element").srcObject;
           let source = audioContext.createMediaStreamSource(stream);
+          console.log("***sourcesource let**: ", source);
           let analyser = audioContext.createAnalyser();
           source.connect(analyser);
           let byteFrequencyData = new Uint8Array(analyser.frequencyBinCount);
+          console.log("**byteFrequencyData:", byteFrequencyDat);
           let floatFrequencyData = new Float32Array(analyser.frequencyBinCount);
-
+          console.log("**floatFrequencyData:", floatFrequencyData);
           await sleep(5000);
 
           const checkFrequency = (targetReceiveFrequency) => {
-            console.log('****checkFrequency');
+            console.log('***checkFrequency');
             analyser.getFloatFrequencyData(floatFrequencyData);
             let maxBinDb = -Infinity;
             let hotBinFrequency = 0;

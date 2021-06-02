@@ -77,6 +77,7 @@ export default class DefaultAudioMixController implements AudioMixController {
     }
 
     if (this.audioStream) {
+      console.log("bindAudioDevice this.audioStream:", this.audioStream);
       this.audioElement.srcObject = this.audioStream;
     }
 

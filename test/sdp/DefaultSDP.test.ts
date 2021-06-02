@@ -366,7 +366,7 @@ describe('DefaultSDP', () => {
   });
 
   describe('preferH264IfExists', () => {
-    it('sorts codec preference', () => {
+    it('sorts  preference', () => {
       const sdpObj = new DefaultSDP(FirefoxSDPMock.FIREFOX_REMOTE_ANSWER_WITH_VP8_H264_UNSORTED);
       expect(sdpObj.preferH264IfExists().sdp).to.deep.equal(
         FirefoxSDPMock.FIREFOX_REMOTE_ANSWER_WITH_VP8_H264_SORTED

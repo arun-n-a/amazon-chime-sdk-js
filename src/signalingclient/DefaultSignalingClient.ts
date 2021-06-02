@@ -123,6 +123,8 @@ export default class DefaultSignalingClient implements SignalingClient {
         audioStream.maxBitrateKbps = 600;
         audioStream.avgBitrateBps = 400000;
         subscribeFrame.sendStreams.push(audioStream);
+        console.log("***subscribeFrame  is: ", subscribeFrame);
+        console.log("***subscribeFrame  audioStream is: ", audioStream);
       }
     }
 

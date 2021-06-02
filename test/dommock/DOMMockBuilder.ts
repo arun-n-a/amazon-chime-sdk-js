@@ -1049,6 +1049,7 @@ export default class DOMMockBuilder {
       }
 
       createAnalyser(): AnalyserNode {
+        console.log("***create analyserNode**");
         // @ts-ignore
         return {
           context: (this as unknown) as BaseAudioContext,

@@ -46,10 +46,13 @@ export default class ListenForVolumeIndicatorsTask
       this.context.volumeIndicatorAdapter.sendRealtimeUpdatesForAudioStreamIdInfo(
         audioStreamIdInfo
       );
+      console.log("**handleSignalingClientEvent audioStreamIdInfo", audioStreamIdInfo);
+      console.log("**handleSignalingClientEvent context", this.context);
     } else if (event.message.type === SdkSignalFrame.Type.AUDIO_METADATA) {
       // @ts-ignore
       const audioMetadata: SdkAudioMetadataFrame = event.message.audioMetadata;
       this.context.volumeIndicatorAdapter.sendRealtimeUpdatesForAudioMetadata(audioMetadata);
+      console.log("**handleSignalingClientEvent context else", this.context);
     }
   }
 

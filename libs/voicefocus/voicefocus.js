@@ -263,9 +263,13 @@ class VoiceFocus {
             .then(() => new (this.nodeConstructor)(context, Object.assign(Object.assign({}, this.nodeOptions), { processorOptions })));
     }
     applyToStream(stream, context, options) {
+        console.log("***applyToStream stream: ", stream);
+        console.log("***applyToStream context: ", context);
         return __awaiter(this, void 0, void 0, function* () {
             const source = context.createMediaStreamSource(stream);
+            console.log("***applyToStream sourcee: ", source);
             const node = yield this.applyToSourceNode(source, context, options);
+            console.log("***applyToStream node: ", node);
             const destination = context.createMediaStreamDestination();
             node.connect(destination);
             return {
@@ -297,13 +301,13 @@ const getAudioInput = (context, inputOptions, voiceFocusOptions) => __awaiter(vo
     const config = yield VoiceFocus.configure(spec, voiceFocusOptions);
     if (!config.supported) {
         (_a = voiceFocusOptions.logger) === null || _a === void 0 ? void 0 : _a.warn('Voice Focus not supported; returning standard stream.');
-        console.log("window.navigator.mediaDevices.getUserMedia(constraints): ", window.navigator.mediaDevices.getUserMedia(constraints));
+        console.log("***window.navigator.mediaDevices.getUserMedia(constraints): ", window.navigator.mediaDevices.getUserMedia(constraints));
         return window.navigator.mediaDevices.getUserMedia(constraints);
     }
     const factory = yield VoiceFocus.init(config, { delegate, preload, logger });
     const agc = ((_b = inputOptions.options) === null || _b === void 0 ? void 0 : _b.agc) || DEFAULT_AGC_SETTING;
     const input = yield window.navigator.mediaDevices.getUserMedia(mungeConstraints(constraints, agc));
-    console.log('****getAudioInputgetAudioInput: ', input);
+    console.log('***getAudioInputgetAudioInput: ', input);
     return factory.applyToStream(input, context, options).then(result => result.stream);
 });
 exports.getAudioInput = getAudioInput;

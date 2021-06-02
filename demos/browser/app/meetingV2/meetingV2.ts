@@ -158,6 +158,7 @@ class TestSound {
   ) {}
 
   async init(): Promise<void> {
+    console.log("***PromisePromise**");
     const audioContext: AudioContext = new (window.AudioContext || window.webkitAudioContext)();
     const gainNode = audioContext.createGain();
     gainNode.gain.value = 0;
@@ -441,6 +442,7 @@ export class DemoMeetingApp
   async initVoiceFocus(): Promise<void> {
     const logger = new ConsoleLogger('SDK', LogLevel.DEBUG);
     if (!this.enableWebAudio) {
+      console.log("***initVoiceFocus this.enableWebAudio: ", this.enableWebAudio);
       logger.info('[DEMO] Web Audio not enabled. Not checking for Amazon Voice Focus support.');
       return;
     }
@@ -492,6 +494,7 @@ export class DemoMeetingApp
         videoInputQuality.value = '720p';
       }
       this.enableWebAudio = (document.getElementById('webaudio') as HTMLInputElement).checked;
+      console.log("***this.enableWebAudio checked**: ", this.enableWebAudio);
       // js sdk default to enable unified plan, equivalent to "Disable Unified Plan" default unchecked
       this.enableUnifiedPlanForChromiumBasedBrowsers = !(document.getElementById(
         'planB'
@@ -860,12 +863,14 @@ export class DemoMeetingApp
 
     const buttonSpeaker = document.getElementById('button-speaker');
     buttonSpeaker.addEventListener('click', _e => {
+      console.log("***buttonSpeaker.addEventListener");
       AsyncScheduler.nextTick(async () => {
         if (this.toggleButton('button-speaker')) {
           try {
             await this.audioVideo.bindAudioElement(
               document.getElementById('meeting-audio') as HTMLAudioElement
             );
+            console.log("***this.audioVideo: ", this.audioVideo);
 
           } catch (e) {
             fatal(e);
@@ -876,7 +881,7 @@ export class DemoMeetingApp
         }
       });
     });
-    console.log("****this.audioVideo: ", this.audioVideo);
+    console.log("****--this.audioVideo: ", this.audioVideo);
     const buttonVideoStats = document.getElementById('button-video-stats');
     buttonVideoStats.addEventListener('click', () => {
       if (this.isButtonOn('button-video-stats')) {
@@ -1196,6 +1201,7 @@ export class DemoMeetingApp
 
   showVideoWebRTCStats(videoMetricReport: { [id: string]: { [id: string]: {} } }): void {
     const videoTiles = this.audioVideo.getAllVideoTiles();
+    console.log("***showVideoWebRTCStats** VideoTiles: ", videoTiles);
     if (videoTiles.length === 0) {
       return;
     }
@@ -1256,6 +1262,8 @@ export class DemoMeetingApp
 
     for (const ssrc of streams) {
       for (const [metricName, value] of Object.entries(metricsData[ssrc])) {
+        console.log("***metricName iss**: ", metricName);
+        console.log("***Value iss**: ", value);
         if (keyStatstoShow[metricName]) {
           const rowElement = document.getElementById(
             `${metricName}-${tileIndex}`
@@ -2175,6 +2183,7 @@ export class DemoMeetingApp
     }
 
     this.analyserNode = analyserNode;
+    console.log("***preview analyserNode: ", analyserNode);
     const data = new Uint8Array(analyserNode.fftSize);
     let frameIndex = 0;
     this.analyserNodeCallback = () => {

@@ -179,13 +179,14 @@ export default class DefaultVideoFrameProcessorPipeline implements VideoFramePro
         this.sourceBuffers[0].width = this.canvasInput.width;
         this.sourceBuffers[0].framerate = this.framerate;
       }
-
+      console.log("***videoWidth is intrinsic video width");
       this.inputCtx.drawImage(this.videoInput, 0, 0);
     }
 
     // processes input buffers
     let buffers: VideoFrameBuffer[] = [];
     buffers.push(this.sourceBuffers[0]);
+    console.log("***processes input buffers: ", buffers);
     try {
       for (const proc of this.processors) {
         buffers = await proc.process(buffers);

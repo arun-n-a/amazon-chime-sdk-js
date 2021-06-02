@@ -92,6 +92,7 @@ export default class DefaultMeetingReadinessChecker implements MeetingReadinessC
     if (this.oscillatorNode) {
       this.stopTone();
     }
+    console.log("***Play Tone**");
     this.audioContext = DefaultDeviceController.getAudioContext();
     this.gainNode = this.audioContext.createGain();
     this.gainNode.gain.value = 0;
