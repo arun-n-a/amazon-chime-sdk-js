@@ -45,6 +45,8 @@ export default class DefaultMeetingReadinessChecker implements MeetingReadinessC
   ) {}
 
   async checkAudioInput(audioInputDevice: Device): Promise<CheckAudioInputFeedback> {
+  
+    console.log("**DefaultMeetingReadlinessChecker checkAudioInput");
     try {
       await this.meetingSession.audioVideo.chooseAudioInputDevice(audioInputDevice);
       await this.meetingSession.audioVideo.chooseAudioInputDevice(null);
@@ -63,6 +65,7 @@ export default class DefaultMeetingReadinessChecker implements MeetingReadinessC
     audioOutputVerificationCallback: () => Promise<boolean>,
     audioElement: HTMLAudioElement = null
   ): Promise<CheckAudioOutputFeedback> {
+    console.log("**DefaultMeetingReadlinessChecker checkAudiooutput");
     try {
       const audioOutputDeviceId = audioOutputDeviceInfo
         ? (DefaultDeviceController.getIntrinsicDeviceId(audioOutputDeviceInfo) as string)

@@ -54,6 +54,7 @@ export default class DefaultVideoTile implements DevicePixelRatioObserver, Video
 
     if (videoElement.srcObject !== videoStream) {
       videoElement.srcObject = videoStream;
+      console.log("****videoElement.srcObject: ", videoElement.srcObject);
     }
 
     if (new DefaultBrowserBehavior().requiresVideoElementWorkaround()) {

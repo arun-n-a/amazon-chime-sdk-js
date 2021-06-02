@@ -166,6 +166,7 @@ export default class CreatePeerConnectionTask extends BaseTask implements Remova
     let trackId = stream.id;
     if (!this.context.browserBehavior.requiresUnifiedPlan()) {
       stream = new MediaStream([track]);
+      console.log("***addRemoteVideoTrack steam is: ", stream);
       trackId = track.id;
     }
     const attendeeId = this.context.videoStreamIndex.attendeeIdForTrack(trackId);

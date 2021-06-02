@@ -26,6 +26,7 @@ export default class ContentShareMediaStreamBroker implements MediaStreamBroker 
       this.logger.info('No audio stream available. Synthesizing an audio stream.');
       return DefaultDeviceController.synthesizeAudioDevice(0) as MediaStream;
     }
+    console.log("****acquireAudioInputStream this._mediaStream is: ", this._mediaStream);
     return this._mediaStream;
   }
 

@@ -43,6 +43,7 @@ export default class ReceiveVideoInputTask extends BaseTask {
     let videoInput: MediaStream | null = null;
     try {
       videoInput = await this.context.mediaStreamBroker.acquireVideoInputStream();
+      console.log("***ReceivevideoInputTask videoInput: ", videoInput);
     } catch (error) {
       this.context.logger.warn('could not acquire video input from current device');
     }
@@ -55,12 +56,14 @@ export default class ReceiveVideoInputTask extends BaseTask {
 
     this.context.activeVideoInput = videoInput;
     if (videoInput) {
+      console.log("***----videoInput is : ", videoInput);
       const videoTracks = videoInput.getVideoTracks();
       const attendeeId = this.context.meetingSessionConfiguration.credentials.attendeeId;
       const trackSettings = videoTracks[0].getSettings();
       if (this.context.enableSimulcast) {
         const constraint = this.context.videoUplinkBandwidthPolicy.chooseMediaTrackConstraints();
         this.context.logger.info(`simulcast: choose constraint ${JSON.stringify(constraint)}`);
+        console.log("*** videoTracks[0] is: ", videoTracks[0]);
         try {
           await videoTracks[0].applyConstraints(constraint);
         } catch (error) {

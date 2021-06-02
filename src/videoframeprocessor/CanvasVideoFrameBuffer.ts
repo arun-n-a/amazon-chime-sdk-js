@@ -23,6 +23,8 @@ export default class CanvasVideoFrameBuffer implements VideoFrameBuffer {
     if (this.destroyed) {
       return Promise.reject('canvas buffer is destroyed');
     }
+    console.log("**CanvasVideoFrameBuffer canvas is: ", this.canvas);
+    
     return Promise.resolve(this.canvas);
   }
 

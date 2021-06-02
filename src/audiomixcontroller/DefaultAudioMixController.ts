@@ -26,6 +26,7 @@ export default class DefaultAudioMixController implements AudioMixController {
     }
     this.audioElement = element;
     this.audioElement.autoplay = true;
+    console.log("*** bindAudioElement element is: ", element);
     return this.bindAudioMix();
   }
 
@@ -41,8 +42,8 @@ export default class DefaultAudioMixController implements AudioMixController {
     if (!stream) {
       return;
     }
-
     this.audioStream = stream;
+    console.log("*** bindAudioStreamthis.audioStream is: ", this.audioStream);
     try {
       await this.bindAudioMix();
     } catch (error) {

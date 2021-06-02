@@ -176,6 +176,7 @@ export default class DefaultVideoStreamIndex implements VideoStreamIndex {
         }
       }
     }
+    console.log("**allVideSendingSourceExcludingSelf videoSources is: ", videoSources);
     return videoSources;
   }
 

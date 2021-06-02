@@ -620,12 +620,12 @@ export default class DefaultDeviceController
   }
 
   startVideoPreviewForVideoInput(element: HTMLVideoElement): void {
+    this.trace('startVideoPreviewForVideoInput', element.id);
     if (!this.activeDevices['video']) {
       this.logger.warn('cannot bind video preview since video input device has not been chosen');
-      this.trace('startVideoPreviewForVideoInput', element.id);
       return;
     }
-
+    console.log("***this.activeDevices['video'] ");
     // TODO: implement MediaDestroyer to provide single release MediaStream function
     this.releaseMediaStream(element.srcObject as MediaStream);
     DefaultVideoTile.disconnectVideoStreamFromVideoElement(element, false);
@@ -634,7 +634,7 @@ export default class DefaultDeviceController
       element,
       true
     );
-
+    console.log("***this.activeDevices['video']ss: ", this.activeDevices['video']);
     this.trace('startVideoPreviewForVideoInput', element.id);
   }
 
@@ -662,7 +662,7 @@ export default class DefaultDeviceController
 
   mixIntoAudioInput(stream: MediaStream): MediaStreamAudioSourceNode {
     console.log("****mixIntoAudioInput**");
-    console.log("****mixIntoAudioInput** Stream", stream);
+    console.log("***mixIntoAudioInput** Stream", stream);
     let node: MediaStreamAudioSourceNode | null = null;
     console.log("***mixIntoAudioInput node: ", node);
     if (this.useWebAudio) {
@@ -969,12 +969,13 @@ export default class DefaultDeviceController
   }
 
   static synthesizeAudioDevice(toneHz: number): MediaStream {
+    cons.log("****synthesizeAudioDevice");
     const audioContext = DefaultDeviceController.getAudioContext();
     const outputNode = audioContext.createMediaStreamDestination();
+    console.log("***synthesizeAudioDevice audiocontext: ", audioContext);
     if (!toneHz) {
       const source = audioContext.createBufferSource();
       console.log("***synthesizeAudioDevice Source: ", source);
-      console.log("***synthesizeAudioDevice audiocontext: ", audioContext);
       // The AudioContext object uses the sample rate of the default output device
       // if not specified. Creating an AudioBuffer object with the output device's
       // sample rate fails in some browsers, e.g. Safari with a Bluetooth headphone.

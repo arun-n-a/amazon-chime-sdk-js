@@ -111,6 +111,7 @@ export default class DefaultActiveSpeakerDetector implements ActiveSpeakerDetect
     scoresCallback?: (scores: { [attendeeId: string]: number }) => void,
     scoresCallbackIntervalMs?: number
   ): void {
+    console.log("***subscribe**");
     const handler = (attendeeId: string, present: boolean): void => {
       if (!present) {
         this.speakerScores[attendeeId] = 0;

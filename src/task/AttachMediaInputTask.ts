@@ -25,6 +25,7 @@ export default class AttachMediaInputTask extends BaseTask {
     if (audioInput) {
       const audioTracks = audioInput.getAudioTracks();
       console.log("**** AttachMediaInputTask audioTracks is: ", audioTracks);
+      console.log("***AttachMediaInputTask audioInput is: ", audioInput);
       if (this.context.browserBehavior.requiresUnifiedPlan()) {
         this.context.logger.info('attaching audio track to peer connection (unified-plan)');
         await transceiverController.setAudioInput(audioTracks.length ? audioTracks[0] : null);
@@ -42,17 +43,19 @@ export default class AttachMediaInputTask extends BaseTask {
             // an existing track as we do in attachVideoInput
             // @ts-ignore
             this.context.localAudioSender = this.context.peer.addTrack(track, audioInput);
+            console.log("**unclear this.context.localAudioSender: ", this.context.localAudioSender);
           }
         });
       }
     } else {
       await transceiverController.setAudioInput(null);
-      this.context.logger.info('no audio track');
+      this.context.logger.info('**no audio track');
     }
 
     const videoInput = this.context.activeVideoInput;
     if (videoInput) {
       const videoTracks = videoInput.getVideoTracks();
+      console.log("videoTracks if videoTracks is: ", videoTracks);
       const videoTrack: MediaStreamTrack | null = videoTracks.length ? videoTracks[0] : null;
       if (this.context.browserBehavior.requiresUnifiedPlan()) {
         this.context.logger.info('attaching video track to peer connection (unified-plan)');
@@ -85,6 +88,7 @@ export default class AttachMediaInputTask extends BaseTask {
           this.context.videoDeviceInformation
         );
         this.context.videoInputAttachedTimestampMs = Date.now();
+        console.log("**if videotrack this.context is: ", this.context);
       }
     } else {
       await transceiverController.setVideoInput(null);

@@ -66,6 +66,7 @@ export default class DefaultAudioVideoFacade implements AudioVideoFacade {
   bindAudioElement(element: HTMLAudioElement): Promise<void> {
     const result = this.audioMixController.bindAudioElement(element);
     this.trace('bindAudioElement', element.id, result);
+    console.log("*****bindAudioElement resullt is: ", result);
     return result;
   }
 
@@ -77,6 +78,7 @@ export default class DefaultAudioVideoFacade implements AudioVideoFacade {
   bindVideoElement(tileId: number, videoElement: HTMLVideoElement): void {
     this.videoTileController.bindVideoElement(tileId, videoElement);
     this.trace('bindVideoElement', { tileId: tileId, videoElementId: videoElement.id });
+    console.log("*****bindvideoElement videoElement is: ", videoElement);
   }
 
   unbindVideoElement(tileId: number): void {
@@ -109,6 +111,7 @@ export default class DefaultAudioVideoFacade implements AudioVideoFacade {
   getLocalVideoTile(): VideoTile | null {
     const result = this.videoTileController.getLocalVideoTile();
     this.trace('getLocalVideoTile');
+    console.log("getLocalVideoTile(): VideoTile result is", result);
     return result;
   }
 
@@ -367,6 +370,7 @@ export default class DefaultAudioVideoFacade implements AudioVideoFacade {
   }
 
   startVideoPreviewForVideoInput(element: HTMLVideoElement): void {
+    console.log("***startVideoPreviewForVideoInput element: ", element);
     this.deviceController.startVideoPreviewForVideoInput(element);
     this.trace('startVideoPreviewForVideoInput', element.id);
   }
@@ -455,6 +459,8 @@ export default class DefaultAudioVideoFacade implements AudioVideoFacade {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private trace(name: string, input?: any, output?: any): void {
+    console.log("***Trace input is: ", input);
+    console.log("***Trace output is: ", output);
     const meetingId = this.audioVideoController.configuration.meetingId;
     const attendeeId = this.audioVideoController.configuration.credentials.attendeeId;
     let s = `API/DefaultAudioVideoFacade/${meetingId}/${attendeeId}/${name}`;
@@ -470,6 +476,7 @@ export default class DefaultAudioVideoFacade implements AudioVideoFacade {
   getRemoteVideoSources(): VideoSource[] {
     const result = this.audioVideoController.getRemoteVideoSources();
     this.trace('getRemoteVideoSources', null, result);
+    console.log("***getRemoteVideoSources result is: ", result);
     return result;
   }
 }

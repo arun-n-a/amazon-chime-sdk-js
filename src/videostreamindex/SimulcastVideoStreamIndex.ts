@@ -119,6 +119,7 @@ export default class SimulcastVideoStreamIndex extends DefaultVideoStreamIndex {
     }
 
     for (let i = 0; i < this._localStreamInfos.length; i++) {
+      console.log("**this._localStreamInfos.length..: ", this._localStreamInfos[i]);
       this._localStreamInfos[i].disabledByWebRTC = false;
       const streamId = this._localStreamInfos[i].streamId;
       if (this._localStreamInfos[i].disabledByUplinkPolicy) {

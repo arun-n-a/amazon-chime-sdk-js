@@ -156,6 +156,7 @@ export default class DefaultTransceiverController implements TransceiverControll
     videosToReceive: VideoStreamIdSet
   ): number[] {
     if (!this.useTransceivers()) {
+      console.log("***videosToReceive.array() is: ", videosToReceive.array());
       return videosToReceive.array();
     }
 
@@ -166,6 +167,7 @@ export default class DefaultTransceiverController implements TransceiverControll
     // We mark inactive slots with 0 in the subscription array.
     this.videoSubscriptions = [0];
     videosToReceive = videosToReceive.clone();
+    console.log("***videosToReceive is: ",videosToReceive);
     this.updateTransceivers(transceivers, videoStreamIndex, videosToReceive);
     this.logger.debug(() => {
       return this.debugDumpTransceivers();
