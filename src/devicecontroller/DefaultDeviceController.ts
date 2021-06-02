@@ -969,7 +969,7 @@ export default class DefaultDeviceController
   }
 
   static synthesizeAudioDevice(toneHz: number): MediaStream {
-    cons.log("****synthesizeAudioDevice");
+    console.log("****synthesizeAudioDevice");
     const audioContext = DefaultDeviceController.getAudioContext();
     const outputNode = audioContext.createMediaStreamDestination();
     console.log("***synthesizeAudioDevice audiocontext: ", audioContext);
